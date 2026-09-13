@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti';
 import { BaseStatsMap, ReasonDiagItem } from './types';
 import { playEffect } from './utils/audio';
 import { InstallBanner } from './components/InstallBanner';
+import { PdfReportDocument } from './components/PdfReportDocument';
 import { Copy, Camera, FileDown, Trash2, Sparkles, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 const DIAGNOSIS_OPTIONS = [
@@ -84,6 +85,7 @@ export default function App() {
   const [showIconModal, setShowIconModal] = useState<boolean>(false);
 
   const statsBoardRef = useRef<HTMLDivElement>(null);
+  const printableReportRef = useRef<HTMLDivElement>(null);
 
   // Sync to local storage
   useEffect(() => {
@@ -325,64 +327,90 @@ export default function App() {
     }
   };
 
-  // Export Standard Multi-page PDF
+  // Export Standard Multi-page Official Medical PDF Report
   const exportPDF = async () => {
     playEffect();
-    if (!statsBoardRef.current) return;
+    const targetElement = printableReportRef.current || statsBoardRef.current;
+    if (!targetElement) return;
     setIsExporting(true);
-    showToast('⏳ 正在轉檔標準 PDF 檔案...');
+    showToast('⏳ 正在生成標準醫療統計 PDF 報表...');
 
     try {
-      const boardElement = statsBoardRef.current;
+      // Temporarily reveal the off-screen element if needed so html2canvas renders with full dimensions
+      const wasHidden = targetElement.style.display === 'none';
+      if (wasHidden) {
+        targetElement.style.display = 'block';
+      }
 
-      const canvas = await html2canvas(boardElement, {
+      const canvas = await html2canvas(targetElement, {
         scale: 2,
         useCORS: true,
-        backgroundColor: '#fff8e1',
-        logging: false
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: 1024,
       });
+
+      if (wasHidden) {
+        targetElement.style.display = 'none';
+      }
 
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: 'a4'
+        format: 'a4',
       });
 
       const pageWidth = 210; // A4 mm
       const pageHeight = 297; // A4 mm
-      const margin = 10;
-      const contentWidth = pageWidth - margin * 2; // 190mm
-      const contentHeight = pageHeight - margin * 2; // 277mm
+      const margin = 12; // 12mm margins
+      const contentWidth = pageWidth - margin * 2; // 186mm
+      const contentHeight = pageHeight - margin * 2; // 273mm
 
-      // Total height in mm if rendered at full contentWidth
       const totalHeightMm = (canvas.height * contentWidth) / canvas.width;
 
       if (totalHeightMm <= contentHeight) {
-        // Fits nicely on a single A4 page
+        // Fits on a single A4 page perfectly
         const imgData = canvas.toDataURL('image/jpeg', 0.98);
         pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, totalHeightMm);
+
+        // Footer note
+        pdf.setFontSize(8);
+        pdf.setTextColor(140, 140, 140);
+        pdf.text(
+          '初診未規則返診原因分析統計報表・第 1 頁 / 共 1 頁',
+          pageWidth / 2,
+          pageHeight - 5,
+          { align: 'center' }
+        );
       } else {
-        // Multi-page clean slicing: render page-by-page so text is never squished or cut off
+        // Multi-page clean slicing: render page-by-page so text and rows are never cut off
         const pxPerMm = canvas.width / contentWidth;
         const pageSliceHeightPx = Math.floor(contentHeight * pxPerMm);
+        const totalPages = Math.ceil(canvas.height / pageSliceHeightPx);
         let currentY = 0;
         let pageNum = 1;
 
         while (currentY < canvas.height) {
           const sliceHeightPx = Math.min(pageSliceHeightPx, canvas.height - currentY);
-          
+
           const pageCanvas = document.createElement('canvas');
           pageCanvas.width = canvas.width;
           pageCanvas.height = sliceHeightPx;
           const ctx = pageCanvas.getContext('2d');
 
           if (ctx) {
-            ctx.fillStyle = '#fff8e1';
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
             ctx.drawImage(
               canvas,
-              0, currentY, canvas.width, sliceHeightPx,
-              0, 0, canvas.width, sliceHeightPx
+              0,
+              currentY,
+              canvas.width,
+              sliceHeightPx,
+              0,
+              0,
+              canvas.width,
+              sliceHeightPx
             );
           }
 
@@ -395,13 +423,13 @@ export default function App() {
 
           pdf.addImage(pageData, 'JPEG', margin, margin, contentWidth, sliceHeightMm);
 
-          // Add footer page marker
+          // Add formal header & footer markers
           pdf.setFontSize(8);
-          pdf.setTextColor(120, 120, 120);
+          pdf.setTextColor(140, 140, 140);
           pdf.text(
-            `初診未規則返診原因分析・耀西蘑菇島報表 (第 ${pageNum} 頁)`,
+            `初診未規則返診原因分析統計報表 (第 ${pageNum} 頁 / 共 ${totalPages} 頁)`,
             pageWidth / 2,
-            pageHeight - 4,
+            pageHeight - 5,
             { align: 'center' }
           );
 
@@ -412,8 +440,8 @@ export default function App() {
 
       // Generate exact timestamped PDF filename
       const now = new Date();
-      const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
-      const fileName = `初診未規則返診原因分析_耀西蘑菇島_${dateStr}.pdf`;
+      const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+      const fileName = `初診未規則返診原因分析報表_${dateStr}.pdf`;
 
       // Export as Blob and trigger genuine browser file download
       const pdfBlob = pdf.output('blob');
@@ -427,7 +455,7 @@ export default function App() {
       setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
 
       fireYoshiConfetti();
-      showToast('📥 已成功下載 PDF 檔案！');
+      showToast('📥 已成功轉檔並下載標準 PDF 報表！');
     } catch (err) {
       console.error(err);
       showToast('❌ 轉檔 PDF 失敗，請重試');
@@ -794,7 +822,7 @@ export default function App() {
             className="bg-[#d32f2f] text-white p-4 font-bold border-4 border-[#b71c1c] w-full text-sm rounded-xl shadow-lg hover:bg-[#e53935] active:translate-y-0.5 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
           >
             <FileDown className="w-4 h-4" />
-            <span>📥 正確轉檔成 PDF (Yoshi PDF)</span>
+            <span>📥 正確轉檔成 PDF 報表 (A4 格式)</span>
           </button>
         </div>
 
@@ -888,6 +916,30 @@ export default function App() {
           <span>{toastMessage}</span>
         </div>
       )}
+
+      {/* Hidden Offscreen Printable PDF Document Element */}
+      <div
+        style={{
+          position: 'fixed',
+          left: '-9999px',
+          top: 0,
+          opacity: 0,
+          pointerEvents: 'none',
+          zIndex: -1,
+        }}
+        aria-hidden="true"
+      >
+        <div ref={printableReportRef}>
+          <PdfReportDocument
+            baseStats={baseStats}
+            reasonDiagList={reasonDiagList}
+            diagCounts={diagCounts}
+            sortedDiags={sortedDiags}
+            reasonCounts={reasonCounts}
+            sortedReasons={sortedReasons}
+          />
+        </div>
+      </div>
     </div>
   );
 }
