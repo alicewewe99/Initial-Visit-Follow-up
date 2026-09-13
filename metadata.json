@@ -1,0 +1,6 @@
+{
+  "name": "初診未規則返診原因分析 - 耀西蘑菇島冒險",
+  "description": "耀西蘑菇島風格的初診未規則返診原因統計與分析系統 (PWA)，提供月份統計、診斷代碼排名、原因分析、快照圖片與報表導出功能。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

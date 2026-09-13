@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #208000;
+    background-image: 
+      radial-gradient(circle at 10% 15%, #56c800 15%, transparent 15%),
+      radial-gradient(circle at 90% 85%, #56c800 20%, transparent 20%),
+      linear-gradient(to bottom, #4cb5f5 0%, #4cb5f5 45%, #76c760 45%, #2e7d32 100%);
+    background-attachment: fixed;
+    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #2c1810;
+    min-height: 100vh;
+  }
+}
+
+.yoshi-island-card {
+  background-color: #fff8e1;
+  border: 6px solid #ff5722;
+  box-shadow: 8px 8px 0px #b71c1c;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.yoshi-island-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(45deg, #ffeb3b, #ffeb3b 15px, #fbc02d 15px, #fbc02d 30px);
+  border-bottom: 3px solid #b71c1c;
+}
+
+.mario-input {
+  border: 4px solid #1b5e20;
+  background: #ffffff;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.mario-input:focus {
+  outline: none;
+  border-color: #d32f2f;
+  background: #fffde7;
+}
+
+.mario-btn {
+  background-color: #ff3d00;
+  color: white;
+  border: 4px solid #b71c1c;
+  padding: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100%;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  transition: transform 0.1s, background-color 0.2s, box-shadow 0.1s;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #b71c1c;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+}
+
+.mario-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #b71c1c;
+}
+
+.mario-btn:hover {
+  background-color: #ff5722;
+}
+
+.stat-item {
+  background: #ffffff;
+  border: 3px dashed #4caf50;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 13px;
+  border-radius: 12px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  color: #d32f2f;
+  font-size: 17px;
+  margin: 20px 0 10px 0;
+  border-bottom: 3px dotted #ffb300;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.mushroom-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  background: #e53935;
+  border: 2px solid #b71c1c;
+  border-radius: 50% 50% 40% 40%;
+  display: inline-block;
+  margin-right: 8px;
+  position: relative;
+  box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.mushroom-icon::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 8px 2px 0 white;
+}
+
+.delete-btn {
+  background: #e53935;
+  color: white;
+  border: 2px solid #b71c1c;
+  padding: 3px 10px;
+  font-size: 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.15s;
+}
+
+.delete-btn:hover {
+  background: #c62828;
+}

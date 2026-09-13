@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Yellow Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF089"/>
+      <stop offset="100%" stop-color="#FCD65A"/>
+    </linearGradient>
+
+    <!-- Fluffy Shadow & Shading -->
+    <radialGradient id="faceShade" cx="50%" cy="45%" r="50%">
+      <stop offset="85%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#ECEEF5"/>
+    </radialGradient>
+
+    <!-- Metallic Silver Gradient -->
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#CFD4DC"/>
+      <stop offset="70%" stop-color="#8E97A6"/>
+      <stop offset="100%" stop-color="#E2E6EC"/>
+    </linearGradient>
+
+    <!-- Stethoscope Blue Tube Gradient -->
+    <linearGradient id="tubeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D7DE2"/>
+      <stop offset="100%" stop-color="#144DA1"/>
+    </linearGradient>
+
+    <!-- Fur Drop Shadow Filter -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1D2330" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Clip Circle for Badge -->
+    <clipPath id="circleClip">
+      <circle cx="256" cy="256" r="236"/>
+    </clipPath>
+  </defs>
+
+  <!-- Yellow Circular Badge Base -->
+  <circle cx="256" cy="256" r="236" fill="url(#bgGrad)"/>
+
+  <!-- Elements inside circle badge -->
+  <g clip-path="url(#circleClip)">
+
+    <!-- Background Accents -->
+    <!-- Left Orange Alert/Sound Bars -->
+    <g transform="translate(68, 175) rotate(-28)">
+      <rect x="0" y="0" width="16" height="34" rx="8" fill="#FF6B4A"/>
+    </g>
+    <g transform="translate(42, 192) rotate(-35)">
+      <rect x="0" y="0" width="15" height="30" rx="7.5" fill="#FF6B4A"/>
+    </g>
+
+    <!-- Right Cute White Heart Outline -->
+    <path d="M 458 322 C 458 310 446 302 436 308 C 426 302 414 310 414 322 C 414 336 436 352 436 352 C 436 352 458 336 458 322 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- PANDA BODY & DOCTOR COAT -->
+    <!-- Coat Base -->
+    <path d="M 120 400 Q 256 365 392 400 L 415 512 L 95 512 Z" fill="#FFFFFF"/>
+    <!-- Coat subtle shading -->
+    <path d="M 95 512 L 140 430 Q 256 460 372 430 L 415 512 Z" fill="#EDF0F7"/>
+    <!-- Doctor Coat Lapels & Collar -->
+    <path d="M 175 385 L 230 455 L 256 435 L 282 455 L 337 385 Q 256 410 175 385 Z" fill="#F8F9FD" stroke="#D7DDE8" stroke-width="3"/>
+    <path d="M 230 455 L 256 512 L 282 455 Z" fill="#E2E7F2"/>
+    <line x1="256" y1="435" x2="256" y2="512" stroke="#CBD2DF" stroke-width="3"/>
+    <!-- Coat Round Button -->
+    <circle cx="256" cy="485" r="10" fill="#CBD3DF" stroke="#A6AFBE" stroke-width="2"/>
+    <circle cx="254" cy="483" r="3" fill="#FFFFFF"/>
+
+    <!-- PANDA HEAD -->
+    <!-- Ears -->
+    <!-- Left Ear -->
+    <ellipse cx="160" cy="115" rx="46" ry="42" transform="rotate(-18 160 115)" fill="#272221" filter="url(#softShadow)"/>
+    <ellipse cx="160" cy="115" rx="30" ry="26" transform="rotate(-18 160 115)" fill="#1A1615"/>
+    <!-- Right Ear -->
+    <ellipse cx="352" cy="115" rx="46" ry="42" transform="rotate(18 352 115)" fill="#272221" filter="url(#softShadow)"/>
+    <ellipse cx="352" cy="115" rx="30" ry="26" transform="rotate(18 352 115)" fill="#1A1615"/>
+
+    <!-- Head Main Fluff -->
+    <ellipse cx="256" cy="245" rx="162" ry="142" fill="url(#faceShade)" filter="url(#softShadow)"/>
+    <!-- Cheek fluff bumps for softness -->
+    <circle cx="115" cy="275" r="42" fill="#FFFFFF"/>
+    <circle cx="397" cy="275" r="42" fill="#FFFFFF"/>
+    <ellipse cx="256" cy="245" rx="160" ry="140" fill="#FFFFFF"/>
+
+    <!-- Eye Patches -->
+    <!-- Left Eye Patch (Open eye side) -->
+    <ellipse cx="185" cy="225" rx="45" ry="38" transform="rotate(-16 185 225)" fill="#241E1D"/>
+    <!-- Right Eye Patch (Winking side) -->
+    <ellipse cx="330" cy="235" rx="45" ry="38" transform="rotate(16 330 235)" fill="#241E1D"/>
+
+    <!-- Left Eye (Big Shiny Pupil) -->
+    <circle cx="192" cy="225" r="22" fill="#130D0C"/>
+    <!-- Eye catchlights -->
+    <circle cx="186" cy="217" r="8.5" fill="#FFFFFF"/>
+    <circle cx="199" cy="231" r="4" fill="#FFFFFF"/>
+    <circle cx="193" cy="236" r="2.5" fill="#FFFFFF"/>
+
+    <!-- Right Eye (Playful Wink Arc) -->
+    <path d="M 314 240 Q 330 222 348 240" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+
+    <!-- Blushing Pink Cheeks -->
+    <!-- Left Cheek Blush -->
+    <ellipse cx="138" cy="285" rx="30" ry="20" fill="#FF8A8A" opacity="0.88"/>
+    <!-- Two cute white highlight dashes on blush -->
+    <line x1="130" y1="282" x2="136" y2="288" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="142" y1="280" x2="148" y2="286" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Right Cheek Blush -->
+    <ellipse cx="370" cy="295" rx="30" ry="20" fill="#FF8A8A" opacity="0.88"/>
+    <line x1="363" y1="292" x2="369" y2="298" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="375" y1="290" x2="381" y2="296" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Cute Panda Nose -->
+    <path d="M 244 266 Q 256 261 268 266 Q 272 278 256 283 Q 240 278 244 266 Z" fill="#201A18"/>
+    <ellipse cx="256" cy="266" rx="6" ry="2.5" fill="#544A47"/>
+
+    <!-- Happy Open Mouth & Tongue -->
+    <path d="M 256 283 L 256 292" stroke="#201A18" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 235 292 Q 256 298 277 292 Q 275 330 256 332 Q 237 330 235 292 Z" fill="#D33F39"/>
+    <!-- Tongue -->
+    <path d="M 240 310 Q 256 300 272 310 Q 268 330 256 332 Q 244 330 240 310 Z" fill="#F8726E"/>
+    <!-- Upper Smile Lip Contour -->
+    <path d="M 228 290 Q 242 296 256 292 Q 270 296 284 290" fill="none" stroke="#201A18" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- STETHOSCOPE -->
+    <!-- Metal ear tubes looping behind neck -->
+    <path d="M 170 190 Q 155 240 185 340" fill="none" stroke="url(#metalGrad)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M 345 190 Q 360 240 330 340" fill="none" stroke="url(#metalGrad)" stroke-width="9" stroke-linecap="round"/>
+    <ellipse cx="170" cy="188" rx="7" ry="9" fill="#717A88"/>
+    <ellipse cx="345" cy="188" rx="7" ry="9" fill="#717A88"/>
+
+    <!-- Royal Blue Stethoscope Tubing -->
+    <!-- Neck connector -->
+    <path d="M 185 340 Q 220 420 256 415 Q 295 420 330 340" fill="none" stroke="url(#tubeGrad)" stroke-width="15" stroke-linecap="round"/>
+    <!-- Tube going to the held chest piece -->
+    <path d="M 256 415 Q 210 420 185 435 Q 140 450 120 350 Q 112 300 118 275" fill="none" stroke="url(#tubeGrad)" stroke-width="15" stroke-linecap="round"/>
+
+    <!-- Panda Right Paw (Viewer's Left) Holding Stethoscope Disc -->
+    <ellipse cx="106" cy="305" rx="38" ry="44" transform="rotate(-15 106 305)" fill="#231E1C" filter="url(#softShadow)"/>
+    <ellipse cx="130" cy="300" rx="16" ry="18" fill="#1C1715"/>
+
+    <!-- Stethoscope Diaphragm (Chest Piece) -->
+    <g transform="translate(108, 252)">
+      <!-- Outer Metal Ring -->
+      <circle cx="0" cy="0" r="42" fill="url(#metalGrad)" stroke="#6C7584" stroke-width="3" filter="url(#softShadow)"/>
+      <!-- Inner Ring -->
+      <circle cx="0" cy="0" r="34" fill="#A4ADB8" stroke="#FFFFFF" stroke-width="2"/>
+      <!-- Metallic Face -->
+      <circle cx="0" cy="0" r="28" fill="url(#metalGrad)"/>
+      <circle cx="0" cy="0" r="16" fill="#D3D8E0" opacity="0.6"/>
+      <!-- Specular Highlight Arc -->
+      <path d="M -18 -18 A 25 25 0 0 1 18 -18" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Tube connector base behind disc -->
+      <rect x="-7" y="32" width="14" height="15" rx="5" fill="#535B67"/>
+    </g>
+
+    <!-- Panda Left Paw (Viewer's Right, bottom resting paw) -->
+    <ellipse cx="325" cy="470" rx="42" ry="38" transform="rotate(-10 325 470)" fill="#231E1C" filter="url(#softShadow)"/>
+  </g>
+</svg>

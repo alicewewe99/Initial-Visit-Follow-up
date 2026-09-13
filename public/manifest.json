@@ -1,0 +1,37 @@
+{
+  "id": "/",
+  "name": "初診未規則返診原因分析 - 耀西蘑菇島冒險",
+  "short_name": "耀西蘑菇島",
+  "description": "耀西蘑菇島風格的初診未規則返診原因統計與分析系統 (PWA)",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#208000",
+  "theme_color": "#208000",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/5BBD3C72-1E50-4DFF-AEEA-B806F2CB0B91.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
