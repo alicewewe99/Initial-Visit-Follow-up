@@ -6,6 +6,7 @@ import { BaseStatsMap, ReasonDiagItem } from './types';
 import { playEffect } from './utils/audio';
 import { InstallBanner } from './components/InstallBanner';
 import { PdfReportDocument } from './components/PdfReportDocument';
+import { DesktopIconModal } from './components/DesktopIconModal';
 import { Copy, Camera, FileDown, Trash2, Sparkles, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 const DIAGNOSIS_OPTIONS = [
@@ -479,8 +480,8 @@ export default function App() {
             <button
               type="button"
               onClick={() => setShowIconModal(true)}
-              className="group flex items-center gap-2.5 bg-yellow-100/90 hover:bg-yellow-200 border-2 border-amber-400 text-amber-950 px-3 py-1.5 rounded-full shadow-xs hover:shadow transition cursor-pointer"
-              title="點擊查看桌面圖示 (原圖一模一樣)"
+              className="group flex items-center gap-2.5 bg-yellow-100/90 hover:bg-yellow-200 border-2 border-amber-400 text-amber-950 px-3.5 py-1.5 rounded-full shadow-xs hover:shadow transition cursor-pointer"
+              title="點擊查看與下載專屬熊貓醫師桌面圖示 (.ico / .png)"
             >
               <img
                 src="/5BBD3C72-1E50-4DFF-AEEA-B806F2CB0B91.png"
@@ -488,8 +489,11 @@ export default function App() {
                 className="w-8 h-8 rounded-full border border-amber-600 shadow-xs group-hover:scale-105 transition"
                 referrerPolicy="no-referrer"
               />
-              <span className="text-xs font-bold text-amber-900">
-                🐼 桌面圖示：熊貓醫師 (點擊查看原圖)
+              <span className="text-xs font-bold text-amber-900 flex items-center gap-1">
+                <span>🐼 桌面圖示：熊貓醫師</span>
+                <span className="bg-amber-500/20 text-amber-950 text-[10px] px-1.5 py-0.5 rounded font-bold border border-amber-400/60">
+                  點擊下載與教學
+                </span>
               </span>
             </button>
           </div>
@@ -852,62 +856,10 @@ export default function App() {
       </div>
 
       {/* Doctor Panda Desktop Icon Modal */}
-      {showIconModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 animate-fadeIn">
-          <div className="w-full max-w-sm rounded-3xl bg-amber-50 border-4 border-[#2e7d32] p-6 shadow-2xl text-stone-900 font-sans text-center relative">
-            <button
-              type="button"
-              onClick={() => setShowIconModal(false)}
-              className="absolute top-3 right-3 text-stone-500 hover:text-stone-800 text-xl font-bold cursor-pointer p-1"
-            >
-              ✕
-            </button>
-
-            <div className="flex justify-center mb-3">
-              <div className="relative">
-                <img
-                  src="/5BBD3C72-1E50-4DFF-AEEA-B806F2CB0B91.png"
-                  alt="熊貓醫師桌面圖示 (原圖)"
-                  className="w-36 h-36 rounded-full border-4 border-amber-400 shadow-xl mx-auto bg-yellow-100"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="absolute bottom-0 right-1 text-2xl">🩺</span>
-              </div>
-            </div>
-
-            <h3 className="text-base font-extrabold text-emerald-900 mb-1">
-              🐼 專屬熊貓醫師桌面圖示
-            </h3>
-            <div className="inline-block bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold mb-3 border border-emerald-300">
-              ✅ 一模一樣原圖已套用至 PWA 桌面圖示
-            </div>
-
-            <p className="text-xs text-stone-600 leading-relaxed mb-4 text-left bg-white/80 p-3 rounded-xl border border-stone-200">
-              ✨ <strong>桌面圖示說明：</strong><br />
-              ・<strong>原圖規格：</strong>圖示完全保持原圖一模一樣，未進行任何改圖。<br />
-              ・<strong>iOS Safari 安裝：</strong>點擊瀏覽器底部的「分享」按鈕 ➡️ 選擇「加入主畫面」，桌面上就會顯示此熊貓醫師圖示！<br />
-              ・<strong>電腦 / Android (Chrome)：</strong>點擊網址列右側「安裝」或「新增至主畫面」。
-            </p>
-
-            <div className="flex gap-2">
-              <a
-                href="/5BBD3C72-1E50-4DFF-AEEA-B806F2CB0B91.png"
-                download="熊貓醫師_桌面圖示.png"
-                className="flex-1 bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold py-2 px-3 rounded-xl border-2 border-amber-600 shadow text-xs flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <span>💾 下載圖示原圖</span>
-              </a>
-              <button
-                type="button"
-                onClick={() => setShowIconModal(false)}
-                className="flex-1 bg-[#2e7d32] hover:bg-[#1b5e20] text-white font-bold py-2 px-3 rounded-xl border-2 border-[#1b5e20] shadow text-xs cursor-pointer"
-              >
-                我知道了
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DesktopIconModal
+        isOpen={showIconModal}
+        onClose={() => setShowIconModal(false)}
+      />
 
       {/* Floating Animated Toast Notification */}
       {toastMessage && (
